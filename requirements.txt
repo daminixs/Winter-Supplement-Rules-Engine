@@ -1,0 +1,15 @@
+# Core dependencies
+paho-mqtt==1.6.1
+python-dotenv==1.0.0
+jsonschema==4.23.0
+
+# Testing dependencies
+pytest==8.3.4
+pytest-cov==4.1.0
+pytest-mock==3.11.1
+pytest-sugar==0.9.7
+hypothesis==6.122.1
+
+# Performance and profiling
+memory-profiler==0.60.0
+pytest-benchmark==5.1.0

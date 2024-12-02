@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter Supplement Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/uuid@latest/dist/umd/uuidv4.min.js"></script>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex items-center justify-center p-4">
+    <div class="container max-w-md mx-auto bg-white shadow-2xl rounded-2xl">
+        <header class="bg-blue-600 text-white text-center p-6 rounded-t-2xl">
+            <h1 class="text-3xl font-bold flex justify-center gap-3">
+                <i class="fas fa-calculator"></i> Winter Supplement Calculator
+            </h1>
+        </header>
+        <main class="p-6 space-y-6">
+            <form id="inputForm" class="space-y-4">
+                <!-- MQTT Topic ID -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-fingerprint mr-2 text-blue-500"></i> MQTT Topic ID
+                    </label>
+                    <div class="flex">
+                        <input id="mqttTopicID" readonly class="flex-1 px-3 py-2 border rounded-md bg-gray-100 cursor-not-allowed text-gray-600" />
+                        <button type="button" id="copyTopicBtn" class="ml-2 bg-blue-500 text-white px-3 rounded-md">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Number of Children -->
+                <div>
+                    <label for="numberOfChildren" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-baby mr-2 text-blue-500"></i> Number of Children
+                    </label>
+                    <input id="numberOfChildren" type="number" placeholder="Enter number of children" required min="0"
+                        class="w-full px-3 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <!-- Family Composition -->
+                <div>
+                    <label for="familyComposition" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-users mr-2 text-blue-500"></i> Family Composition
+                    </label>
+                    <select id="familyComposition" required class="w-full px-3 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                        <option value="single">Single Parent</option>
+                        <option value="couple">Couple</option>
+                    </select>
+                </div>
+                <!-- In Pay for December -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-calendar-check mr-2 text-blue-500"></i> Family Unit in Pay for December?
+                    </label>
+                    <div class="flex space-x-4">
+                        <label><input type="radio" name="familyUnitInPayForDecember" value="yes" class="form-radio"> Yes</label>
+                        <label><input type="radio" name="familyUnitInPayForDecember" value="no" checked class="form-radio"> No</label>
+                    </div>
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-md shadow-md">
+                    <i class="fas fa-calculator mr-2"></i> Calculate Supplement
+                </button>
+            </form>
+            <!-- Loading -->
+            <div id="loading" class="hidden text-center text-blue-600 flex items-center space-x-2">
+                <i class="fas fa-spinner fa-spin"></i> <span>Calculating...</span>
+            </div>
+            <!-- Results -->
+            <div id="results" class="hidden p-6 bg-blue-50 rounded-xl space-y-3">
+                <h2 class="text-xl font-bold flex items-center"><i class="fas fa-chart-pie mr-3 text-blue-500"></i> Calculation Results</h2>
+                <div id="isEligible" class="flex justify-between p-3 bg-white rounded-lg shadow-sm">
+                    <span>Eligibility:</span><span></span>
+                </div>
+                <div id="baseAmount" class="flex justify-between p-3 bg-white rounded-lg shadow-sm">
+                    <span>Base Amount:</span><span></span>
+                </div>
+                <div id="childrenAmount" class="flex justify-between p-3 bg-white rounded-lg shadow-sm">
+                    <span>Children Amount:</span><span></span>
+                </div>
+                <div id="supplementAmount" class="flex justify-between p-3 bg-white rounded-lg shadow-sm border-t pt-3">
+                    <span class="font-semibold">Total Supplement:</span><span class="text-xl text-blue-600"></span>
+                </div>
+            </div>
+        </main>
+        <!-- Error Modal -->
+        <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+            <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm text-center">
+                <i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Connection Error</h3>
+                <p id="errorMessage" class="text-gray-600 mb-4"></p>
+                <button id="closeErrorBtn" class="bg-red-500 text-white px-4 py-2 rounded-md">Close</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Copy Topic ID functionality
+        document.getElementById('copyTopicBtn').addEventListener('click', () => {
+            const topicInput = document.getElementById('mqttTopicID');
+            navigator.clipboard.writeText(topicInput.value);
+        });
+
+        const mqttTopicID = uuidv4();
+        document.getElementById('mqttTopicID').value = mqttTopicID;
+
+        const broker = "wss://test.mosquitto.org:8081";
+        const client = mqtt.connect(broker);
+
+        const inputTopic = `BRE/calculateWinterSupplementInput/${mqttTopicID}`;
+        const outputTopic = `BRE/calculateWinterSupplementOutput/${mqttTopicID}`;
+
+        // Error modal handling
+        const errorModal = document.getElementById('errorModal');
+        const errorMessage = document.getElementById('errorMessage');
+        const closeErrorBtn = document.getElementById('closeErrorBtn');
+
+        closeErrorBtn.addEventListener('click', () => {
+            errorModal.classList.add('hidden');
+        });
+
+        client.on('connect', () => {
+            client.subscribe(outputTopic);
+        });
+
+        client.on('error', (error) => {
+            errorMessage.textContent = error.message || 'An unexpected error occurred.';
+            errorModal.classList.remove('hidden');
+        });
+
+        client.on('message', (topic, message) => {
+            if (topic === outputTopic) {
+                const data = JSON.parse(message.toString());
+                document.getElementById('loading').classList.add('hidden');
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.classList.remove('hidden');
+
+                const eligibilitySpan = document.querySelector('#isEligible span:last-child');
+                eligibilitySpan.textContent = data.isEligible ? "Eligible" : "Not Eligible";
+                eligibilitySpan.className = data.isEligible
+                    ? 'text-green-600 font-bold'
+                    : 'text-red-600 font-bold';
+
+                document.querySelector('#baseAmount span:last-child').textContent = `$${data.baseAmount.toFixed(2)}`;
+                document.querySelector('#childrenAmount span:last-child').textContent = `$${data.childrenAmount.toFixed(2)}`;
+                document.querySelector('#supplementAmount span:last-child').textContent = `$${data.supplementAmount.toFixed(2)}`;
+            }
+        });
+
+        document.getElementById('inputForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+
+            const numberOfChildren = parseInt(document.getElementById('numberOfChildren').value);
+            const familyComposition = document.getElementById('familyComposition').value;
+            const familyUnitInPayForDecember = document.querySelector('input[name="familyUnitInPayForDecember"]:checked').value === 'yes';
+
+            const inputData = {
+                id: mqttTopicID,
+                numberOfChildren,
+                familyComposition,
+                familyUnitInPayForDecember
+            };
+
+            client.publish(inputTopic, JSON.stringify(inputData));
+        });
+    </script>
+</body>
+</html>
