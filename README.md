@@ -90,17 +90,17 @@ Optional Step: Defaults have been already set according to requirements, to modi
 
 * **Option 1: Integration with Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](#integration-with-existing-winter-supplement-web-app)
   
-* **Option 2: Custom Web App ** - [Click here for Live Demo Website](https://daminixs.github.io/Winter-Supplement-Rules-Engine/frontend/winter-supplement-calculator.html)
+* **Option 2: Custom Web App** - [Click here for Live Demo Website](https://daminixs.github.io/Winter-Supplement-Rules-Engine/frontend/winter-supplement-calculator.html)
  (or open `frontend/winter-supplement-calculator.html`).
   
 
-### Comprehensive Tests for Each Module:
+### Running Comprehensive Tests for Each Module:
 
     # Run all tests  
     python -m pytest tests/  
     
     # Run a specific test file  
-    python -m pytest tests/test_calculator.py  
+    python -m pytest tests/calculation-tests.py
     
     # Generate a coverage report
     python -m pytest --cov=winter_supplement_engine tests/
