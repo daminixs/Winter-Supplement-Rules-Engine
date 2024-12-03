@@ -88,7 +88,7 @@ Optional Step: Defaults have already been set according to requirements, to modi
 
 * **Option 1: Integration with Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](#integration-with-existing-winter-supplement-web-app) section.
   
-* **Option 2: Custom Web App** - [Click here for Live Demo Website](https://daminixs.github.io/Winter-Supplement-Rules-Engine/frontend/winter-supplement-calculator.html).
+* **Option 2: Custom Web App** - [Link for Live Demo Website](https://daminixs.github.io/Winter-Supplement-Rules-Engine/frontend/winter-supplement-calculator.html).
   
 
 ### Running Comprehensive Tests for Each Module:
