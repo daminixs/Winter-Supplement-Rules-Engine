@@ -20,25 +20,25 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 2. [Setting Up Instructions](#setting-up-instructions)
 3. [Running the Application](#running-the-application)
 4. [MQTT Broker Configuration](#mqtt-broker-configuration)
-5. [Testing](#testing)
+5. [Testing Suite and Result](#testing-suite-and-result)
 6. [Web App Integration and Demo with Frontend ](#web-app-integration)
 
 * * *
 
 # **Directory Structure**
 
-    Winter Supplement Calculator/
-    │
-    ├── frontend/                 # Contains frontend files (UI)
-    ├── main.py                   # Entry point for the application
-    ├── pytest.ini                # Test configuration
-    ├── requirements.txt          # Dependencies list
-    ├── tests/                    # Unit and integration tests
-    ├── winter_supplement_engine/ # Core logic and utilities
-    │   ├── mqtt_client.py        # MQTT client implementation
-    │   ├── config.py             # Configuration settings
-    │   └── ...                   # Other modules
-    └── README.md                 # Project documentation
+```
+Winter-Supplement-Rules-Engine/
+├── frontend/                 - Contains frontend files (UI)
+├── tests/                    - Unit and integration tests
+├── winter_supplement_engine/ - Core logic and utilities
+├── main.py                   - Entry point for the application
+├── pytest.ini                - Test configuration
+├── .coveragerc               - Test coverage configuration
+├── .env.example              - Example environment configuration file
+├── requirements.txt          - List of dependencies
+└── README.md                 - Project documentation
+```
 
 * * *
 
@@ -46,16 +46,10 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 
 ### Prerequisites
 
-* Python 3.12+
-  
-* pip (Python package manager)
-  
-* Internet connection for MQTT broker
-  
-* Git
-  
+* Python 3.12+ (3.12 preffered)
 * Virtual environment tool (recommended: `venv`)
-  
+* Tools: pip (Python package manager), Git
+   
 ## Installation and Setup:
   
 ### 1. Clone the Repository
@@ -69,7 +63,8 @@ cd Winter-Supplement-Rules-Engine
   
   #### On Unix/macOS
  ``` 
-  python3 -m venv venv source venv/bin/activate
+ python3 -m venv venv
+ source venv/bin/activate
  ``` 
   #### On Windows
   ```
@@ -77,14 +72,15 @@ cd Winter-Supplement-Rules-Engine
   ```
 
 ### 3. Install Dependencies
-
-    pip install -r requirements.txt  
+    
+    pip install -r requirements.txt
+    
 
 * * *
 
 # Running the Application
 
-Optional Step: Defaults have been already set according to requirements, to modify mqtt broker configuration refer to [MQTT Broker Configuration](# mqtt-broker-configuration) .
+Optional Step: Defaults have been already set according to requirements, to modify mqtt broker configuration refer to [MQTT Broker Configuration](#mqtt-broker-configuration) .
 
 ### Start the Rules Engine:
 
@@ -92,28 +88,31 @@ Optional Step: Defaults have been already set according to requirements, to modi
 
 ### Integration with Winter Supplement Web App:
 
-* **Option 1: Integration with Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](# integration-with-existing-winter-supplement-web-app)
+* **Option 1: Integration with Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](#integration-with-existing-winter-supplement-web-app)
   
-* **Option 2: Custom Web App Demo** - (add website link) or open `frontend/winter-supplement-calculator.html`.
+* **Option 2: Custom Web App ** - [Click here for Live Demo Website](https://daminixs.github.io/Winter-Supplement-Rules-Engine/frontend/winter-supplement-calculator.html)
+ (or open `frontend/winter-supplement-calculator.html`).
   
 
 ### Comprehensive Tests for Each Module:
 
     # Run all tests  
-    pytest tests/  
+    python -m pytest tests/  
     
     # Run a specific test file  
-    pytest tests/test_calculator.py  
+    python -m pytest tests/test_calculator.py  
     
     # Generate a coverage report
-    pytest --cov=winter_supplement_engine tests/
+    python -m pytest --cov=winter_supplement_engine tests/
 
 * * *
 
-# MQTT Broker Setup/Configuration
+# MQTT Broker Configuration
 
-To configure these options, create a `.env` file in the project root with the desired values or copy the existing example env file and edit: cp .env.example .env
-
+To configure these options, create a `.env` file in the project root with the desired values or copy the existing example env file and edit: 
+```
+cp .env.example .env
+```
 ### MQTT Topic Handling
 
 You can configure the `MQTT_TOPIC_ID` in the `.env` file for more precise topic handling:
@@ -143,7 +142,7 @@ You can modify these options by setting the corresponding environment variables 
 
 * * *
 
-# Testing
+# Testing Suite and Result
 
 #### **1. Calculation Tests (`calculation-tests.py`)**
 
@@ -209,8 +208,6 @@ This workflow was verified using **MQTT Explorer**. However, the provided web ap
 
 Despite extensive troubleshooting, the exact cause could not be identified. However, the issue might originate from mismatched IDs in the GET and POST requests. While monitoring the network tab, it was observed that the GET and POST requests were using different IDs. However, without backend source code, it can not be confirmed if this discrepancy is the root cause. There is a possibility that this behavior is intentional (as there is no strict requirement for the requests to use the same ID) and the issue could entirely lie elsewhere.
 
-* * *
-
 ### Custom Frontend Solution
 
 To address the display issue and ensure a seamless testing experience, a custom frontend application was developed. This frontend utilizes the **Paho MQTT client library** to communicate with the MQTT broker over WebSockets and mirrors the functionality of the provided web app.
@@ -222,10 +219,7 @@ Key features include:
 
 The **MQTT_TOPIC_ID** is dynamically generated for each session using the UUID library, similar to the provided app.
 
-* * *
-
 ###
-
-![webappdemo gif](https://github.com/user-attachments/assets/5ff82e4f-e4c6-4ede-a200-855d8b3ba61f)
+![ezgif-1-41140e8761](https://github.com/user-attachments/assets/52f6cc6c-03e7-42dc-96c5-321d570fad5e)
 
 * * *
