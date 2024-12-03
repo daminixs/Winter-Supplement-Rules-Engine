@@ -27,7 +27,7 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 
 ```
 Winter-Supplement-Rules-Engine/
-├── frontend/                 - Contains frontend files (UI)
+├── frontend/                 - Contains frontend files
 ├── tests/                    - Unit and integration tests
 ├── winter_supplement_engine/ - Core logic and utilities
 ├── main.py                   - Entry point for the application
@@ -44,7 +44,7 @@ Winter-Supplement-Rules-Engine/
 
 ### Prerequisites
 
-* Python 3.12+ (3.12 preffered)
+* Python 3.12
 * Virtual environment tool (recommended: `venv`)
 * Tools: pip (Python package manager), Git
    
