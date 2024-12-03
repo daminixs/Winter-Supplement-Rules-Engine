@@ -1,5 +1,3 @@
-* * *
-
 # **Project Overview**
 
 The **Winter Supplement Rules Engine** determines eligibility and calculates the winter supplement amount based on predefined rules. It uses MQTT for messaging, JSON for data interchange and supports a frontend interface for easy interaction.
@@ -17,10 +15,10 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 # Table of Contents
 
 1. [Directory Structure](#directory-structure)
-2. [Setting Up Instructions](#setting-up-instructions)
+2. [Set Up Instructions](#set-up-instructions)
 3. [Running the Application](#running-the-application)
 4. [MQTT Broker Configuration](#mqtt-broker-configuration)
-5. [Testing Suite and Result](#testing-suite-and-result)
+5. [Testing Suite and Results](#testing-suite-and-results)
 6. [Web App Integration and Demo with Frontend ](#web-app-integration)
 
 * * *
@@ -42,7 +40,7 @@ Winter-Supplement-Rules-Engine/
 
 * * *
 
-# **Setting Up Instructions**
+# **Set Up Instructions**
 
 ### Prerequisites
 
@@ -80,7 +78,7 @@ cd Winter-Supplement-Rules-Engine
 
 # Running the Application
 
-Optional Step: Defaults have been already set according to requirements, to modify mqtt broker configuration refer to [MQTT Broker Configuration](#mqtt-broker-configuration) .
+Optional Step: Defaults have already been set according to requirements, to modify mqtt broker configuration refer to [MQTT Broker Configuration](#mqtt-broker-configuration) .
 
 ### Start the Rules Engine:
 
@@ -88,10 +86,9 @@ Optional Step: Defaults have been already set according to requirements, to modi
 
 ### Integration with Winter Supplement Web App:
 
-* **Option 1: Integration with Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](#integration-with-existing-winter-supplement-web-app)
+* **Option 1: Integration with Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](#integration-with-existing-winter-supplement-web-app) section.
   
-* **Option 2: Custom Web App** - [Click here for Live Demo Website](https://daminixs.github.io/Winter-Supplement-Rules-Engine/frontend/winter-supplement-calculator.html)
- (or open `frontend/winter-supplement-calculator.html`).
+* **Option 2: Custom Web App** - [Click here for Live Demo Website](https://daminixs.github.io/Winter-Supplement-Rules-Engine/frontend/winter-supplement-calculator.html).
   
 
 ### Running Comprehensive Tests for Each Module:
@@ -142,7 +139,7 @@ You can modify these options by setting the corresponding environment variables 
 
 * * *
 
-# Testing Suite and Result
+# Testing Suite and Results
 
 #### **1. Calculation Tests (`calculation-tests.py`)**
 
@@ -166,7 +163,7 @@ You can modify these options by setting the corresponding environment variables 
 
 #### **3. Performance and Stress Tests (`performance-stress-tests.py`)**
 
-**Purpose:** Evaluate system scalability, throughput, and memory efficiency.
+**Purpose:** Evaluate system scalability, throughput and memory efficiency.
 
 **Key Scenarios:**
 
@@ -194,7 +191,7 @@ You can modify these options by setting the corresponding environment variables 
 
 ### Integration with Existing Winter Supplement Web App
 
-The rules engine can be integrated with the existing Winter Supplement web app as follows:
+To integrate the rules engine with the existing Winter Supplement web app:
 
 1. Log in to the Winter Supplement web app to generate a unique topic ID.
 2. Add the generated topic ID to the `.env` file as specified in the configuration section.
@@ -202,11 +199,11 @@ The rules engine can be integrated with the existing Winter Supplement web app a
 
 The web app generates input data and publishes it to the MQTT topic:`BRE/calculateWinterSupplementInput/<MQTT_TOPIC_ID>`.
 
-The rules engine processes and validates the input, calculates results, and publishes them in the specified format to the MQTT topic:`BRE/calculateWinterSupplementOutput/<MQTT_TOPIC_ID>`.
+The rules engine processes and validates the input, calculates results and publishes them in the specified format to the MQTT topic:`BRE/calculateWinterSupplementOutput/<MQTT_TOPIC_ID>`.
 
 This workflow was verified using **MQTT Explorer**. However, the provided web app was not displaying the result.
 
-Despite extensive troubleshooting, the exact cause could not be identified. However, the issue might originate from mismatched IDs in the GET and POST requests. While monitoring the network tab, it was observed that the GET and POST requests were using different IDs. However, without backend source code, it can not be confirmed if this discrepancy is the root cause. There is a possibility that this behavior is intentional (as there is no strict requirement for the requests to use the same ID) and the issue could entirely lie elsewhere.
+Despite extensive troubleshooting, the exact cause could not be identified. The issue might originate from mismatched IDs in the GET and POST requests. While monitoring the network tab, it was observed that the GET and POST requests were using different IDs. However, without backend source code, it can not be confirmed if this discrepancy is the root cause. There is a possibility that this behavior is intentional (as there is no strict requirement for the requests to use the same ID) and the issue could entirely lie elsewhere.
 
 ### Custom Frontend Solution
 
