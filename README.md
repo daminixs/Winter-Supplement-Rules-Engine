@@ -53,7 +53,7 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 
 * * *
 
-Installation and Setup:
+## Installation and Setup:
 
 ### 1. Clone the Repository
 
@@ -86,9 +86,9 @@ Optional Step: Defaults have been already set according to requirements, to modi
 
 ### Integration with Winter Supplement Web App:
 
-* **Option 1: Integration with the Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](# integration-with-existing-winter-supplement-web-app)
+* **Option 1: Integration with Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](# integration-with-existing-winter-supplement-web-app) section
   
-* **Option 2: Custom Web App Demo** - (add website link) or open `frontend/winter-supplement-calculator.html`.
+* **Option 2: Custom Web App Demo** - (add website link) or open `frontend/winter-supplement-calculator.html`
 
 ### Comprehensive Tests for Each Module:
 
@@ -105,7 +105,7 @@ Optional Step: Defaults have been already set according to requirements, to modi
 
 # MQTT Broker Setup/Configuration
 
-To configure these options, create a `.env` file in the project root with the desired values or copy the existing example env file and edit:
+To configure these options, create a `.env` file in the project root with the desired values or copy the existing example env file and edit.
 
     cp .env.example .env 
 
@@ -164,7 +164,7 @@ You can modify these options by setting the corresponding environment variables 
 
 #### **3. Performance and Stress Tests (`performance-stress-tests.py`)**
 
-**Purpose:** Evaluate system scalability, throughput, and memory efficiency.
+**Purpose:** Evaluate system scalability, throughput and memory efficiency.
 
 **Key Scenarios:**
 
@@ -199,7 +199,7 @@ The rules engine can be integrated with the existing Winter Supplement web app a
 
 The web app generates input data and publishes it to the MQTT topic:`BRE/calculateWinterSupplementInput/<MQTT_TOPIC_ID>`.
 
-The rules engine processes and validates the input, calculates results, and publishes them in the specified format to the MQTT topic:`BRE/calculateWinterSupplementOutput/<MQTT_TOPIC_ID>`.
+The rules engine processes and validates the input, calculates results and publishes them in the specified format to the MQTT topic:`BRE/calculateWinterSupplementOutput/<MQTT_TOPIC_ID>`.
 
 This workflow was verified using **MQTT Explorer**. However, the provided web app was not displaying the result.
 
