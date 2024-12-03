@@ -1,4 +1,3 @@
-# Winter-Supplement-Rules-Engine
 * * *
 
 **Project Overview**
@@ -8,7 +7,6 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 #### **Features Implemented:**
 
 * **Rules Engine**: Implements policies for winter supplement calculations.
-* **MQTT Integration**: Real-time messaging support via MQTT protocol.
 * **Configurable**: Easy to adapt using `.env` files and JSON schemas.
 * **Input/Output Validation**: Ensures incoming data and output data adheres to predefined JSON schemas.
 * **Frontend Interface**: Interactive UI (if applicable) for managing inputs and outputs.
@@ -23,9 +21,8 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 3. [Running the Application](#running-the-application)
 4. [MQTT Broker Setup/ Configuration](#mqtt-broker-setupconfiguration)
 5. [Testing](#testing)
-6. [Messaging Format](#messaging-format)
-7. [Demo with Frontend](#demo-with-frontend)
-8. [Conclusion](#conclusion)
+6. [Demo with Frontend](#demo-with-frontend)
+7. [Conclusion](#conclusion)
 
 # **Directory Structure**
 
@@ -45,8 +42,6 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 * * *
 
 # **Setting Up Instructions**
-
-Prerequisites:
 
 ### System Requirements
 
@@ -86,7 +81,7 @@ Installation and Setup:
 
 # Running the Application
 
-Optional Step: Defaults have been already set according to requirements, to modify mqtt broker config refer to [MQTT Broker Setup/Configuration](# mqtt-broker-setup/configuration) .
+Optional Step: Defaults have been already set according to requirements, to modify mqtt broker configuration refer to [MQTT Broker Setup/Configuration](# mqtt-broker-setup/configuration) .
 
 ### Start the Rules Engine:
 
@@ -147,8 +142,6 @@ You can modify these options by setting the corresponding environment variables 
 
 # Testing
 
-Testing is segmented into four specialized test files, each addressing distinct aspects of the application.
-
 * * *
 
 #### **1. Calculation Tests (`calculation-tests.py`)**
@@ -196,30 +189,7 @@ Testing is segmented into four specialized test files, each addressing distinct 
 
 * * *
 
-Following strict data format requirements are enforced:
-
-### Sample Input
-
-    {
-        "id": "client123",
-        "numberOfChildren": 2,
-        "familyComposition": "couple",
-        "familyUnitInPayForDecember": true
-    }
-
-### Sample Output
-
-    {
-        "id": "client123",
-        "isEligible": true,
-        "baseAmount": 120.0,
-        "childrenAmount": 40.0,
-        "supplementAmount": 160.0
-    }
-
-* * *
-
-# Web App Integration and Demo with Frontend
+# Web App Integration
 
 ### Integration with Existing Winter Supplement Web App
 
@@ -252,19 +222,8 @@ The **MQTT_TOPIC_ID** is dynamically generated for each session using the UUID l
 
 * * *
 
-### How to Use
-
-The **Winter Supplement Frontend Application** is hosted via GitHub Pages for accessibility and demonstration purposes. It can also be downloaded and executed locally.
-
-1. Access the application (via GitHub Pages link or locally).
-2. Input the required data (family composition, number of children, and December eligibility).
-3. Submit the data to the MQTT server.
-4. View the calculated results displayed in real-time on the application page.
+###
 
 gif/video
 
 * * *
-
-# Conclusion
-
-The Winter Supplement Calculator ensures seamless communication with the web application via MQTT for real-time input and output handling. It accurately determines eligibility based on the familyUnitInPayForDecember field, returning 0.0 for ineligible clients. The engine precisely calculates base amounts, additional amounts for children, and total supplements, adhering strictly to defined rules. Comprehensive testing ensures reliability, scalability, and accuracy, making it a robust solution for winter supplement processing.
