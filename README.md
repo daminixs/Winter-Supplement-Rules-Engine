@@ -1,6 +1,6 @@
 * * *
 
-**Project Overview**
+# **Project Overview**
 
 The **Winter Supplement Rules Engine** determines eligibility and calculates the winter supplement amount based on predefined rules. It uses MQTT for messaging, JSON for data interchange and supports a frontend interface for easy interaction.
 
@@ -140,7 +140,6 @@ You can modify these options by setting the corresponding environment variables 
 
 # Testing
 
-* * *
 
 #### **1. Calculation Tests (`calculation-tests.py`)**
 
@@ -175,7 +174,7 @@ You can modify these options by setting the corresponding environment variables 
 * Simulating concurrent calculations for thread safety.
   
 
-**4. Validation Tests (`validation-tests.py`)**
+#### **4. Validation Tests (`validation-tests.py`)**
 
 **Purpose:** Enforce strict input/ output validation and security standards.
 
@@ -207,7 +206,7 @@ Despite extensive troubleshooting, the exact cause could not be identified. Howe
 
 * * *
 
-### Custom Frontend Solution
+### Custom Frontend Web App Integration
 
 To address the display issue and ensure a seamless testing experience, a custom frontend application was developed. This frontend utilizes the **Paho MQTT client library** to communicate with the MQTT broker over WebSockets and mirrors the functionality of the provided web app.
 
