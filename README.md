@@ -1,5 +1,4 @@
 * * *
-
 # **Project Overview**
 
 The **Winter Supplement Rules Engine** determines eligibility and calculates the winter supplement amount based on predefined rules. It uses MQTT for messaging, JSON for data interchange and supports a frontend interface for easy interaction.
@@ -13,7 +12,6 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 * **Testing Suite**: Comprehensive tests to ensure reliability and edge-case coverage.
 
 * * *
-
 # Table of Contents
 
 1. [Directory Structure](#directory-structure)
@@ -24,6 +22,7 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 6. [Demo with Frontend](#demo-with-frontend)
 7. [Conclusion](#conclusion)
 
+* * *
 # **Directory Structure**
 
     Winter Supplement Calculator/
@@ -40,7 +39,6 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
     └── README.md                 # Project documentation
 
 * * *
-
 # **Setting Up Instructions**
 
 ### Prerequisites
@@ -50,8 +48,6 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 * Internet connection for MQTT broker
 * Git
 * Virtual environment tool (recommended: `venv`)
-
-* * *
 
 ## Installation and Setup:
 
@@ -75,7 +71,6 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
     pip install -r requirements.txt  
 
 * * *
-
 # Running the Application
 
 Optional Step: Defaults have been already set according to requirements, to modify mqtt broker configuration refer to [MQTT Broker Setup/Configuration](# mqtt-broker-setup/configuration) .
@@ -102,7 +97,6 @@ Optional Step: Defaults have been already set according to requirements, to modi
     pytest --cov=winter_supplement_engine tests/
 
 * * *
-
 # MQTT Broker Setup/Configuration
 
 To configure these options, create a `.env` file in the project root with the desired values or copy the existing example env file and edit.
@@ -137,7 +131,6 @@ This flexibility allows the engine to handle both broad and specific use cases d
 You can modify these options by setting the corresponding environment variables in your configuration.
 
 * * *
-
 # Testing
 
 
@@ -185,7 +178,6 @@ You can modify these options by setting the corresponding environment variables 
 * Security checks (input sanitization, XSS prevention).
 
 * * *
-
 # Web App Integration
 
 ### Integration with Existing Winter Supplement Web App
@@ -203,8 +195,6 @@ The rules engine processes and validates the input, calculates results and publi
 This workflow was verified using **MQTT Explorer**. However, the provided web app was not displaying the result.
 
 Despite extensive troubleshooting, the exact cause could not be identified. However, the issue might originate from mismatched IDs in the GET and POST requests. While monitoring the network tab, it was observed that the GET and POST requests were using different IDs. However, without backend source code, it can not be confirmed if this discrepancy is the root cause. There is a possibility that this behavior is intentional (as there is no strict requirement for the requests to use the same ID) and the issue could entirely lie elsewhere.
-
-* * *
 
 ### Custom Frontend Web App Integration
 
