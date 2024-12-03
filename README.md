@@ -66,7 +66,8 @@ cd Winter-Supplement-Rules-Engine
  ``` 
   #### On Windows
   ```
-  python -m venv venv venv\Scripts\activate
+  python -m venv venv
+  venv\Scripts\activate
   ```
 
 ### 3. Install Dependencies
