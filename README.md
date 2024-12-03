@@ -43,14 +43,11 @@ The **Winter Supplement Rules Engine** determines eligibility and calculates the
 
 # **Setting Up Instructions**
 
-### System Requirements
+### Prerequisites
 
 * Python 3.12+
 * pip (Python package manager)
 * Internet connection for MQTT broker
-
-### Required Tools
-
 * Git
 * Virtual environment tool (recommended: `venv`)
 
@@ -89,7 +86,8 @@ Optional Step: Defaults have been already set according to requirements, to modi
 
 ### Integration with Winter Supplement Web App:
 
-* **Option 1: Integration with the Existing Web App** - Refer to the relevant section for detailed instructions.
+* **Option 1: Integration with the Existing Web App** - Refer to the [Integration with Existing Winter Supplement Web App](# integration-with-existing-winter-supplement-web-app)
+  
 * **Option 2: Custom Web App Demo** - (add website link) or open `frontend/winter-supplement-calculator.html`.
 
 ### Comprehensive Tests for Each Module:
